@@ -5,24 +5,24 @@ export const load = async () => {
         studentID: "2024055",
         studentName: "Ahmad Albab",
         subjects: [
-            { 
-                subjectName: "Culinary Arts", 
+            {
+                subjectName: "Culinary Arts",
                 assessments: [
                     { name: "Knife Skills Test", scoreObtained: 18, maxScore: 20, weightage: 20 },
                     { name: "Menu Planning", scoreObtained: 25, maxScore: 30, weightage: 30 },
-                    { name: "Final Practical", scoreObtained: null, maxScore: 100, weightage: 50 } 
+                    { name: "Final Practical", scoreObtained: null, maxScore: 100, weightage: 50 }
                 ]
             },
-            { 
-                subjectName: "Food Safety & Hygiene", 
+            {
+                subjectName: "Food Safety & Hygiene",
                 assessments: [
                     { name: "Quiz 1", scoreObtained: 9, maxScore: 10, weightage: 10 },
                     { name: "Hygiene Audit", scoreObtained: 35, maxScore: 40, weightage: 40 },
-                    { name: "Final Exam", scoreObtained: null, maxScore: 100, weightage: 50 } 
+                    { name: "Final Exam", scoreObtained: null, maxScore: 100, weightage: 50 }
                 ]
             },
-            { 
-                subjectName: "Introduction to Baking", 
+            {
+                subjectName: "Introduction to Baking",
                 assessments: [
                     { name: "Bread Making", scoreObtained: 40, maxScore: 50, weightage: 50 },
                     { name: "Pastry Techniques", scoreObtained: 45, maxScore: 50, weightage: 50 }
@@ -62,6 +62,6 @@ export const load = async () => {
 
     // 5. Return processed data to the layout
     return {
-        student: studentData 
+        student: studentData
     };
 };
