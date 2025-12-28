@@ -1,5 +1,6 @@
 export const load = async () => {
-    // 1. Define global mock student data
+    // 1. Define global student data structure
+    // This simulates data fetched from a database
     const studentData = {
         studentID: "2024055",
         studentName: "Ahmad Albab",
@@ -35,12 +36,12 @@ export const load = async () => {
         skills: "Knife Skills, Menu Planning, Food Styling"
     };
 
-    // 2. Iterate through subjects to calculate scores
+    // 2. Iterate through subjects to calculate weighted scores
     studentData.subjects = studentData.subjects.map(sub => {
         let totalObtained = 0;
         let totalMax = 0;
 
-        // 3. Sum scores for completed assessments
+        // 3. Aggregate scores for completed assessments
         sub.assessments.forEach(asm => {
             if (asm.scoreObtained !== null) {
                 const weightedScore = (asm.scoreObtained / asm.maxScore) * asm.weightage;
@@ -49,7 +50,7 @@ export const load = async () => {
             }
         });
 
-        // 4. Calculate percentage based on max possible score
+        // 4. Calculate final percentage based on maximum possible score
         const percentage = totalMax > 0 ? ((totalObtained / totalMax) * 100).toFixed(1) : 0;
 
         return {
@@ -59,6 +60,7 @@ export const load = async () => {
         };
     });
 
+    // 5. Return processed data to the layout
     return {
         student: studentData 
     };

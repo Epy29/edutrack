@@ -75,6 +75,10 @@
                     <User size={18} /> My Profile
                 </a>
                 
+                <a href="/subject" on:click={closeSidebar} class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium">
+                    <BookOpen size={18} /> Subject
+                </a>
+
                 <a href="/" on:click={closeSidebar} class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium">
                     <Sparkles size={18} /> Career Prediction
                 </a>
@@ -82,6 +86,8 @@
                 <a href="/history" on:click={closeSidebar} class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium">
                     <BookOpen size={18} /> Academic History
                 </a>
+
+                
             </nav>
 
             <div class="p-4 border-t border-gray-100 mb-[50px]">
