@@ -123,7 +123,7 @@
                 </a>
 
                 <a
-                    href="/"
+                    href="/career-prediction"
                     on:click={closeSidebar}
                     class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
                 >
