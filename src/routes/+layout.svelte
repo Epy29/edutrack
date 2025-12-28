@@ -71,6 +71,7 @@
             <button
                 class="fixed inset-0 bg-black/20 z-40 lg:hidden"
                 on:click={closeSidebar}
+                aria-label="Close sidebar"
             ></button>
         {/if}
 
