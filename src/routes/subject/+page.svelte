@@ -80,6 +80,13 @@
                         <h3 class="font-bold text-lg text-slate-800">
                             {sub.SubjectName}
                         </h3>
+                        {#if sub.Attendance !== null}
+                            <span
+                                class="ml-2 px-2 py-0.5 rounded text-xs font-semibold bg-green-100 text-green-700 border border-green-200"
+                            >
+                                {sub.Attendance}% Attd.
+                            </span>
+                        {/if}
 
                         <!-- Subject Actions (Edit/Delete) -->
                         <div
@@ -274,17 +281,36 @@
                         />
                     {/if}
 
-                    <label
-                        class="block text-sm font-semibold text-slate-700 mb-2"
-                        >Subject Name</label
-                    >
-                    <input
-                        name="subjectName"
-                        type="text"
-                        value={selectedItem.SubjectName || ""}
-                        class="w-full border border-slate-300 rounded-lg px-3 py-2 mb-6 focus:ring-2 focus:ring-blue-100 outline-none"
-                        required
-                    />
+                    <div class="mb-4">
+                        <label
+                            class="block text-sm font-semibold text-slate-700 mb-2"
+                            >Subject Name</label
+                        >
+                        <input
+                            name="subjectName"
+                            type="text"
+                            value={selectedItem.SubjectName || ""}
+                            class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-100"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-6">
+                        <label
+                            class="block text-sm font-semibold text-slate-700 mb-2"
+                            >Attendance (%)</label
+                        >
+                        <input
+                            name="attendance"
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="0.1"
+                            value={selectedItem.Attendance || ""}
+                            class="w-full border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-100"
+                            placeholder="Optional (e.g. 85)"
+                        />
+                    </div>
 
                     <div class="flex justify-end gap-3">
                         <button

@@ -74,11 +74,12 @@ export const actions = {
         const userID = cookies.get('user_id');
         const data = await request.formData();
         const subjectName = data.get('subjectName');
+        const attendance = data.get('attendance') || null;
 
         try {
             await mysqlConn.execute(
-                'INSERT INTO Subject (StudID, SubjectName) VALUES (?, ?)',
-                [userID, subjectName]
+                'INSERT INTO Subject (StudID, SubjectName, Attendance) VALUES (?, ?, ?)',
+                [userID, subjectName, attendance]
             );
             return { success: true };
         } catch (error) {
@@ -92,11 +93,12 @@ export const actions = {
         const data = await request.formData();
         const subjectID = data.get('subjectID');
         const newName = data.get('subjectName');
+        const attendance = data.get('attendance') || null;
 
         try {
             await mysqlConn.execute(
-                'UPDATE Subject SET SubjectName = ? WHERE subjectID = ? AND StudID = ?',
-                [newName, subjectID, userID]
+                'UPDATE Subject SET SubjectName = ?, Attendance = ? WHERE subjectID = ? AND StudID = ?',
+                [newName, attendance, subjectID, userID]
             );
             return { success: true };
         } catch (error) {

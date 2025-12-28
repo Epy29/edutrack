@@ -20,10 +20,16 @@ export const load = async ({ cookies }) => {
         // 3. Fetch Subjects & Grades (For the Academic Table)
         const [subjectRows] = await mysqlConn.execute('SELECT * FROM Subject WHERE StudID = ?', [userID]);
 
-        // 4. Fetch Latest Prediction (For the AI Result Box)
-        // assume a 'Prediction' table exists. If not, return null.
-        // const [predRows] = await mysqlConn.execute('SELECT * FROM Prediction WHERE StudID = ? ORDER BY date DESC LIMIT 1', [userID]);
-        const latestPrediction = null; // Placeholder until create the Prediction table
+        // 4. Fetch Latest Prediction
+        const [predRows] = await mysqlConn.execute('SELECT * FROM Prediction WHERE StudID = ? ORDER BY PredID DESC LIMIT 1', [userID]);
+        let latestPrediction = null;
+        if (predRows.length > 0) {
+            latestPrediction = {
+                careerTitle: "AI Prediction", // The table doesn't have a title column yet, using a generic one or parsing if possible.
+                description: predRows[0].PredictionText,
+                riskLevel: predRows[0].RiskLevel
+            };
+        }
 
         return {
             student: {
