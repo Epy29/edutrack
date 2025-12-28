@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | EduTrack</title>
+    <link rel="stylesheet" href="css/student.css">
+</head>
+<body>
+
+<input type="checkbox" id="sidebar-toggle" hidden>
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3>Menu</h3>
+        <label for="sidebar-toggle" class="close-sidebar-btn">←</label>
+    </div>
+
+    <a href="stud-portal.html" class="active-link">Dashboard</a>
+    <a href="stud-profile.html">My Profile</a> 
+    <a href="career-predict.html">Career Prediction</a>
+    <a href="academic-history.html">Academic History</a>
+    <a href="login.html">Logout</a>
+</div>
+
+<header class="header">
+    <label for="sidebar-toggle" class="menu-btn">☰</label>
+
+    <h1 class="title">EduTrack</h1>
+
+    <div class="profile-section">
+        <span class="user-name">Najhan (Student)</span>
+        <img src="https://via.placeholder.com/40" class="profile-img" alt="Profile">
+    </div>
+</header>
+
+<main class="content">
+    <h2>Student Dashboard</h2>
+    <p class="welcome">Welcome back, <strong>Muhammad Najhan</strong></p>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Profile Status</h3>
+            <p class="status-complete">100% Complete</p>
+            <span class="sub-text">Ready for analysis</span>
+        </div>
+        <div class="stat-card highlight-card">
+            <h3>Top Career Match</h3>
+            <p class="career-match">Software Engineer</p>
+            <span class="sub-text">AI Confidence: 88%</span>
+        </div>
+    </div>
+
+    <div class="prediction-section">
+        <div class="section-header">
+            <h3>AI Career Analysis</h3>
+            <button class="generate-btn">✨ Generate New Prediction</button>
+        </div>
+
+        <div class="prediction-result-box">
+            <h4>Software Engineer</h4>
+            <p class="prediction-desc">
+                Based on your strong performance in <strong>Programming II</strong> and <strong>Data Structures</strong>, 
+                along with your interest in <em>Web Development</em>, the AI predicts distinct success in Software Engineering.
+            </p>
+            
+            <div class="skills-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Problem Solving</span>
+                <span class="tag">Logic Design</span>
+            </div>
+
+            <hr>
+            
+            <div class="alternatives">
+                <p><strong>Alternative Paths:</strong></p>
+                <ul>
+                    <li>Data Analyst (75% Match)</li>
+                    <li>System Administrator (60% Match)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <h3>Recent Academic Performance</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>Grade</th>
+                    <th>Attendance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CSC508</td>
+                    <td>Data Structures</td>
+                    <td>A</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>CSC577</td>
+                    <td>Software Engineering</td>
+                    <td>A-</td>
+                    <td>95%</td>
+                </tr>
+                <tr>
+                    <td>MAT421</td>
+                    <td>Calculus I</td>
+                    <td>B+</td>
+                    <td>88%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer class="footer">© 2025 EduTrack. All Rights Reserved.</footer>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic History | EduTrack</title>
+    <link rel="stylesheet" href="css/student.css">
+</head>
+<body>
+
+<input type="checkbox" id="sidebar-toggle" hidden>
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3>Menu</h3>
+        <label for="sidebar-toggle" class="close-sidebar-btn">←</label>
+    </div>
+    <a href="stud-portal.html">Dashboard</a>
+    <a href="stud-profile.html">My Profile</a>
+    <a href="career-predict.html">Career Prediction</a>
+    <a href="academic-history.html" class="active-link">Academic History</a> 
+    <a href="login.html">Logout</a>
+</div>
+
+<header class="header">
+    <label for="sidebar-toggle" class="menu-btn">☰</label>
+    <h1 class="title">EduTrack</h1>
+    <div class="profile-section">
+        <span class="user-name">Najhan (Student)</span>
+        <img src="https://via.placeholder.com/40" class="profile-img" alt="Profile">
+    </div>
+</header>
+
+<main class="content">
+    
+    <div class="history-header">
+        <div>
+            <h2>Academic History</h2>
+            <p class="welcome">View your grades and attendance records across all semesters.</p>
+        </div>
+        <button class="download-btn-outline">🖨️ Print Transcript</button>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Attendance Average</h3>
+            <p class="stat-number">95%</p>
+            <span class="sub-text">Across all subjects</span>
+        </div>
+    </div>
+
+    <div class="semester-section">
+        <div class="semester-title">
+            <h3>Semester 2 (Feb 2025 - July 2025)</h3>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Subject Name</th>
+                        <th>Grade</th>
+                        <th>Status</th>
+                        <th>Attendance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CSC508</td>
+                        <td>Data Structures & Algorithms</td>
+                        <td><span class="grade-pill grade-a">A</span></td>
+                        <td>Pass</td>
+                        <td>100%</td>
+                    </tr>
+                    <tr>
+                        <td>CSC577</td>
+                        <td>Software Engineering</td>
+                        <td><span class="grade-pill grade-a">A-</span></td>
+                        <td>Pass</td>
+                        <td>95%</td>
+                    </tr>
+                    <tr>
+                        <td>MAT421</td>
+                        <td>Calculus I</td>
+                        <td><span class="grade-pill grade-b">B+</span></td>
+                        <td>Pass</td>
+                        <td>88%</td>
+                    </tr>
+                    <tr>
+                        <td>ENG401</td>
+                        <td>English for Academic Purposes</td>
+                        <td><span class="grade-pill grade-a">A</span></td>
+                        <td>Pass</td>
+                        <td>92%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="semester-section">
+        <div class="semester-title">
+            <h3>Semester 1 (Oct 2024 - Feb 2025)</h3>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Subject Name</th>
+                        <th>Grade</th>
+                        <th>Status</th>
+                        <th>Attendance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CSC402</td>
+                        <td>Programming I</td>
+                        <td><span class="grade-pill grade-a">A</span></td>
+                        <td>Pass</td>
+                        <td>98%</td>
+                    </tr>
+                    <tr>
+                        <td>CSC413</td>
+                        <td>Introduction to Interactive Design</td>
+                        <td><span class="grade-pill grade-a">A-</span></td>
+                        <td>Pass</td>
+                        <td>94%</td>
+                    </tr>
+                    <tr>
+                        <td>MAT406</td>
+                        <td>Linear Algebra</td>
+                        <td><span class="grade-pill grade-b">B</span></td>
+                        <td>Pass</td>
+                        <td>85%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<footer class="footer">© 2025 EduTrack. All Rights Reserved.</footer>
+
+</body>
+</html>

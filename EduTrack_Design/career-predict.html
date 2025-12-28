@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Prediction | EduTrack</title>
+    <link rel="stylesheet" href="css/student.css">
+</head>
+<body>
+
+<input type="checkbox" id="sidebar-toggle" hidden>
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3>Menu</h3>
+        <label for="sidebar-toggle" class="close-sidebar-btn">←</label>
+    </div>
+    <a href="stud-portal.html">Dashboard</a>
+    <a href="stud-profile.html">My Profile</a>
+    <a href="career-predict.html" class="active-link">Career Prediction</a> 
+    <a href="academic-history.html">Academic History</a>
+    <a href="login.html">Logout</a>
+</div>
+
+<header class="header">
+    <label for="sidebar-toggle" class="menu-btn">☰</label>
+    <h1 class="title">EduTrack</h1>
+    <div class="profile-section">
+        <span class="user-name">Najhan (Student)</span>
+        <img src="https://via.placeholder.com/40" class="profile-img" alt="Profile">
+    </div>
+</header>
+
+<main class="content">
+    
+    <div class="prediction-header-box">
+        <div>
+            <h2>AI Career Prediction</h2>
+            <p class="sub-text">Based on your Academic Profile, Interests, and Behavior.</p>
+        </div>
+        <button class="generate-btn large-btn">✨ Generate New Prediction</button>
+    </div>
+
+    <div class="prediction-grid">
+        
+        <div class="prediction-card main-match">
+            <div class="match-badge">Top Match</div>
+            <h1 class="career-title">Software Engineer</h1>
+            
+            <div class="confidence-meter-container">
+                <div class="meter-label">
+                    <span>AI Confidence Score</span>
+                    <strong>92%</strong>
+                </div>
+                <div class="progress-bg">
+                    <div class="progress-fill" style="width: 92%;"></div>
+                </div>
+            </div>
+
+            <p class="prediction-summary">
+                Your strong performance in <strong>Data Structures (A)</strong> and logic-based assessments, combined with your self-reported interest in <strong>Problem Solving</strong>, makes this your ideal career path.
+            </p>
+
+            <div class="tags-container">
+                <span class="tag">High Demand</span>
+                <span class="tag">Technical</span>
+                <span class="tag">Remote Friendly</span>
+            </div>
+        </div>
+
+        <div class="prediction-card analysis-card">
+            <h3>Why this result?</h3>
+            <ul class="analysis-list">
+                <li>
+                    <strong>Academic Strength:</strong> 
+                    <span class="highlight-green">CSC508 (Data Structures)</span> aligns 95% with this role.
+                </li>
+                <li>
+                    <strong>Behavioral Match:</strong> 
+                    Your "Detail-Oriented" self-assessment matches the requirement for code debugging.
+                </li>
+                <li>
+                    <strong>Skill Gap (To Improve):</strong> 
+                    <span class="highlight-orange">Cloud Computing</span> is recommended for this role but not found in your profile.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 class="section-title">Alternative Career Paths</h3>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Data Analyst</h3>
+            <div class="mini-meter">
+                <div class="progress-bg">
+                    <div class="progress-fill blue-fill" style="width: 78%;"></div>
+                </div>
+            </div>
+            <p class="stat-number">78% Match</p>
+            <span class="sub-text">Good match for your math scores.</span>
+        </div>
+
+        <div class="stat-card">
+            <h3>Systems Administrator</h3>
+            <div class="mini-meter">
+                <div class="progress-bg">
+                    <div class="progress-fill yellow-fill" style="width: 65%;"></div>
+                </div>
+            </div>
+            <p class="stat-number">65% Match</p>
+            <span class="sub-text">Matches your organizational skills.</span>
+        </div>
+
+        <div class="stat-card">
+            <h3>IT Project Manager</h3>
+            <div class="mini-meter">
+                <div class="progress-bg">
+                    <div class="progress-fill yellow-fill" style="width: 55%;"></div>
+                </div>
+            </div>
+            <p class="stat-number">55% Match</p>
+            <span class="sub-text">Requires more leadership experience.</span>
+        </div>
+    </div>
+
+</main>
+
+<footer class="footer">© 2025 EduTrack. All Rights Reserved.</footer>
+
+</body>
+</html>

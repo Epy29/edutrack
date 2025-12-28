@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>View Student Details | EduTrack</title>
+<link rel="stylesheet" href="css/lecturer.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR TOGGLE (CSS-ONLY) -->
+<input type="checkbox" id="sidebar-toggle" hidden>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3>Menu</h3>
+        <label for="sidebar-toggle" class="close-sidebar-btn">←</label>
+    </div>
+
+    <a href="lect-dash.html">Main Page</a>
+    <a href="lect-profile.html">My Profile</a>
+    <a href="login.html">Logout</a>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <label for="sidebar-toggle" class="menu-btn">☰</label>
+
+    <h1 class="title">EduTrack</h1>
+
+    <div class="profile-section">
+        <img src="https://via.placeholder.com/40" class="profile-img">
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+    <h2>Student Details</h2>
+
+    <div class="top-controls">
+        <button class="delete-btn">Delete</button>
+        <button class="download-btn">Download</button>
+    </div>
+
+    <div class="table-container">
+        <table class="details-table">
+            <tbody>
+                <tr><th>Student Name</th><td>Ahmad Ali</td></tr>
+                <tr><th>Student ID</th><td>2023123456</td></tr>
+                <tr><th>Email</th><td>ahmadali@example.com</td></tr>
+                <tr><th>Class</th><td>CS1105A</td></tr>
+                <tr><th>Interest</th><td>Programming, Data Science</td></tr>
+                <tr><th>Skills</th><td>Java, Python, SQL</td></tr>
+
+                <tr>
+                    <th>Subject Taken & Assessment Marks</th>
+                    <td>
+                        <ul>
+                            <li>Programming I – 82%</li>
+                            <li>Discrete Math – 76%</li>
+                            <li>Database Fundamentals – 88%</li>
+                            <li>Web Development – 91%</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Prediction Analysis</th>
+                    <td>
+                        <ul>
+                            <li>Software Engineering</li>
+                            <li>Data Analysis</li>
+                            <li>AI / Machine Learning</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr><th>Risk Level</th><td><strong style="color:green">Low Risk</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">© 2025 EduTrack. All Rights Reserved.</footer>
+</body>
+</html>

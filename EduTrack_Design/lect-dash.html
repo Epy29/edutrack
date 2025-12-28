@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Dashboard | EduTrack</title>
+    <link rel="stylesheet" href="css/lecturer.css">
+</head>
+<body>
+
+<!-- SIDEBAR TOGGLE INPUT (CSS ONLY MECHANISM) -->
+<input type="checkbox" id="sidebar-toggle" hidden>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3>Menu</h3>
+        <label for="sidebar-toggle" class="close-sidebar-btn">←</label>
+    </div>
+
+    <a href="lect-dash.html">Main Page</a>
+    <a href="lect-profile.html">My Profile</a>
+    <a href="login.html">Logout</a>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <!-- ☰ Button opens sidebar -->
+    <label for="sidebar-toggle" class="menu-btn">☰</label>
+
+    <h1 class="title">EduTrack</h1>
+
+    <!-- PROFILE MENU -->
+    <div class="profile-section">
+        <img src="https://via.placeholder.com/40" class="profile-img">
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+    <h2>Lecturer Dashboard</h2>
+    <p class="welcome">Welcome, <strong>Lecturer Name</strong></p>
+
+    <!-- SEARCH + FILTER -->
+    <div class="top-controls">
+        <input type="text" placeholder="Search students..." class="search-box">
+        <select class="filter-dropdown">
+            <option>Filter by</option>
+            <option>Risk of Failing</option>
+            <option>Student Name</option>
+            <option>Student ID</option>
+        </select>
+    </div>
+
+    <!-- STUDENT TABLE -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>View</th>
+                    <th>Delete</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Ahmad Ali</td>
+                    <td>2023123456</td>
+                    <td><button class="view-btn">View</button></td>
+                    <td><button class="delete-btn">Delete</button></td>
+                    <td><button class="download-btn">Download</button></td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Siti Aminah</td>
+                    <td>2023765432</td>
+                    <td><button class="view-btn">View</button></td>
+                    <td><button class="delete-btn">Delete</button></td>
+                    <td><button class="download-btn">Download</button></td>
+                </tr>
+            </tbody>    
+        </table>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">© 2025 EduTrack. All Rights Reserved.</footer>
+
+</body>
+</html>

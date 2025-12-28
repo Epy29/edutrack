@@ -1,0 +1,374 @@
+/* ====================================
+   GLOBAL
+==================================== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f6fb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ====================================
+   SIDEBAR (CSS Toggle)
+==================================== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 230px;
+    height: 100%;
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 3px 0px 12px rgba(0,0,0,0.12);
+    border-radius: 0 12px 12px 0;
+    transition: 0.3s ease;
+    z-index: 9999;
+}
+
+/* When checkbox is checked, show sidebar */
+#sidebar-toggle:checked ~ .sidebar {
+    left: 0;
+}
+
+/* SIDEBAR HEADER */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Close arrow */
+.close-sidebar-btn {
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+    padding: 5px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 0;
+    text-decoration: none;
+    color: #444;
+    font-size: 15px;
+}
+
+.sidebar a:hover {
+    color: #5aa9e6;
+}
+
+/* ====================================
+   HEADER
+==================================== */
+.header {
+    background: #5aa9e6;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.menu-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+.title {
+    margin: 0;
+    font-size: 22px;
+    text-align: center;
+}
+
+/* ====================================
+   PROFILE DROPDOWN (CSS ONLY)
+==================================== */
+.profile-section {
+    position: relative;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Dropdown hidden by default */
+.profile-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    display: none;
+    background: #fff;
+    width: 130px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Show dropdown on hover (CSS-only) */
+.profile-section:hover .profile-dropdown {
+    display: block;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.profile-dropdown a:hover {
+    background: #efefef;
+}
+
+/* ====================================
+   CONTENT
+==================================== */
+.content {
+    flex: 1;
+    padding: 25px;
+}
+
+.content h2 {
+    margin-bottom: 5px;
+}
+
+.welcome {
+    margin-top: 0;
+    color: #555;
+}
+
+/* SEARCH + FILTER BAR */
+.top-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-box,
+.filter-dropdown {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* ====================================
+   TABLE
+==================================== */
+.table-container {
+    overflow-x: auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #5aa9e6;
+    color: white;
+}
+
+th, td {
+    padding: 14px;
+    text-align: center;
+    font-size: 15px;
+}
+
+tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* Buttons */
+.view-btn {
+    background: #5aa9e6;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: none;
+}
+
+.delete-btn {
+    background: #e04b4b;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: none;
+}
+
+.download-btn {
+    background: #8cc63f;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* ====================================
+   PROFILE PAGE STYLES
+==================================== */
+
+/* Center the container */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    /* Extra padding at bottom to avoid footer overlap */
+    padding-bottom: 80px; 
+}
+
+/* The White Box Card */
+.profile-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 500px; /* Limits width so it looks like a box */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative; /* Needed for the Edit button positioning */
+}
+
+/* Edit Button (Top Right Corner) */
+.edit-btn-corner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid #5aa9e6;
+    color: #5aa9e6;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.edit-btn-corner:hover {
+    background: #5aa9e6;
+    color: white;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    box-sizing: border-box; /* Ensures padding doesn't widen the input */
+}
+
+/* Style for disabled inputs (Read-only mode) */
+.form-group input:disabled {
+    background-color: #e9e9e9;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Bottom Buttons Container */
+.profile-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Save Button (Reusing Green from download-btn logic or Blue) */
+.save-btn {
+    flex: 1; /* Takes up available space */
+    background: #5aa9e6; /* Blue to match theme */
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #4a90c9;
+}
+
+/* Delete Account Button */
+.delete-account-btn {
+    background: transparent;
+    border: 1px solid #e04b4b;
+    color: #e04b4b;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delete-account-btn:hover {
+    background: #e04b4b;
+    color: white;
+}
+
+/* Simple Active Link Highlighter for Sidebar */
+.sidebar a.active-link {
+    background-color: #f0f7fd;
+    color: #5aa9e6;
+    border-right: 3px solid #5aa9e6;
+}
+
+/* ====================================
+   FOOTER FIXED
+==================================== */
+.footer {
+    background: #e5e5e5;
+    padding: 12px;
+    text-align: center;
+    color: #555;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+/* ====================================
+   RESPONSIVE
+==================================== */
+@media (max-width: 768px) {
+    .top-controls {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .search-box,
+    .filter-dropdown {
+        width: 100%;
+    }
+}
