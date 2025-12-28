@@ -16,7 +16,7 @@ export const actions = {
 
             if (rows.length > 0) {
                 // 2. Success: Create a "Session" cookie
-                // store the StudID in the browser so we know who they are later
+                // store the StudID in the browser, so know who they are later
                 cookies.set('user_id', studID, { path: '/' });
                 
                 // 3. Redirect to Dashboard

@@ -5,7 +5,7 @@ export default {
     extend: {
       fontFamily: { sans: ['Inter', 'sans-serif'] },
       colors: {
-        // Renaming the custom palette to a Blue theme
+        // Blue theme
         'edu-blue': '#5aa9e6',
         'edu-pale': '#f0f7fd',
         brand: {
