@@ -9,6 +9,7 @@
         BookOpen,
         LogOut,
         ChevronLeft,
+        Clock3,
     } from "lucide-svelte";
 
     export let data;
@@ -131,12 +132,20 @@
                 </a>
 
                 <a
+                    href="/"
+                    on:click={closeSidebar}
+                    class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
+                >
+                    <Clock3 size={18} /> Prediction History
+                </a>
+
+                <!-- <a
                     href="/history"
                     on:click={closeSidebar}
                     class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
                 >
                     <BookOpen size={18} /> Academic History
-                </a>
+                </a> -->
             </nav>
 
             <div class="p-4 border-t border-gray-100 mb-[50px]">
