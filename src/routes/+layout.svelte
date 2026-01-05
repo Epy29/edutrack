@@ -52,10 +52,12 @@
             <div class="flex items-center gap-3">
                 <div class="hidden sm:block text-right">
                     <div class="text-sm font-medium">
-                        {data.student?.studentName || "Guest"}
+                        {data.student?.Username ||
+                            data.lecturer?.Username ||
+                            "Guest"}
                     </div>
                     <div class="text-[10px] uppercase opacity-80 font-bold">
-                        {data.student?.studentID || ""}
+                        {data.student?.StudID || data.lecturer?.LectID || ""}
                     </div>
                 </div>
                 <div
@@ -99,53 +101,48 @@
                     ADDED: on:click={closeSidebar} to all links 
                     This ensures the menu slides away after user selection
                 -->
-                <a
-                    href="/student-portal"
-                    on:click={closeSidebar}
-                    class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
-                >
-                    <LayoutDashboard size={18} /> Dashboard
-                </a>
 
-                <a
-                    href="/student-profile"
-                    on:click={closeSidebar}
-                    class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
-                >
-                    <User size={18} /> My Profile
-                </a>
+                {#if data.student}
+                    <a
+                        href="/student-portal"
+                        on:click={closeSidebar}
+                        class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
+                    >
+                        <LayoutDashboard size={18} /> Dashboard
+                    </a>
 
-                <a
-                    href="/subject"
-                    on:click={closeSidebar}
-                    class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
-                >
-                    <BookOpen size={18} /> Subject
-                </a>
+                    <a
+                        href="/student-profile"
+                        on:click={closeSidebar}
+                        class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
+                    >
+                        <User size={18} /> My Profile
+                    </a>
 
-                <a
-                    href="/career-prediction"
-                    on:click={closeSidebar}
-                    class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
-                >
-                    <Sparkles size={18} /> Career Prediction
-                </a>
+                    <a
+                        href="/subject"
+                        on:click={closeSidebar}
+                        class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
+                    >
+                        <BookOpen size={18} /> Subject
+                    </a>
 
-                <a
-                    href="/"
-                    on:click={closeSidebar}
-                    class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
-                >
-                    <Clock3 size={18} /> Prediction History
-                </a>
+                    <a
+                        href="/career-prediction"
+                        on:click={closeSidebar}
+                        class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
+                    >
+                        <Sparkles size={18} /> Career Prediction
+                    </a>
 
-                <!-- <a
-                    href="/history"
-                    on:click={closeSidebar}
-                    class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
-                >
-                    <BookOpen size={18} /> Academic History
-                </a> -->
+                    <a
+                        href="/history"
+                        on:click={closeSidebar}
+                        class="flex items-center gap-3 px-3 py-3 text-gray-600 hover:bg-edu-pale hover:text-edu-blue rounded-md transition-colors text-[15px] font-medium"
+                    >
+                        <Clock3 size={18} /> Prediction History
+                    </a>
+                {/if}
             </nav>
 
             <div class="p-4 border-t border-gray-100 mb-[50px]">

@@ -46,8 +46,11 @@ export async function generateAiPrediction(studentData) {
             - Keep descriptions very short (1 sentence).
         `;
 
+    const modelName = 'gemini-2.5-flash';
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${env.GEMINI_API_KEY}`;
+
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`, {
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,16 +73,24 @@ export async function generateAiPrediction(studentData) {
         const jsonString = textResponse.replace(/^```json\n|\n```$/g, '').trim();
         const result = JSON.parse(jsonString);
 
+        let cleanHtml = result.predictionHtml;
+        // Sometimes the inner HTML string is also wrapped in markdown blocks
+        if (cleanHtml && cleanHtml.startsWith('```html')) {
+            cleanHtml = cleanHtml.replace(/^```html\n|\n```$/g, '').trim();
+        } else if (cleanHtml && cleanHtml.startsWith('```')) {
+            cleanHtml = cleanHtml.replace(/^```\n|\n```$/g, '').trim();
+        }
+
         return {
             riskLevel: result.riskLevel,
-            predictionText: result.predictionHtml // Return HTML as the text content
+            predictionText: cleanHtml // Return clean HTML
         };
 
     } catch (error) {
         console.error("AI Generation Failed:", error);
         return {
             riskLevel: 'High',
-            predictionText: "Failed to generate prediction due to technical error."
+            predictionText: `Failed to generate prediction due to technical error: ${error.message}`
         };
     }
 }

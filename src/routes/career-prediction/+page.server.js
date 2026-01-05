@@ -100,93 +100,76 @@ export const actions = {
         const behavior = formData.get('behavior');
 
         // Parse subjects to readable string for AI
-        let academicContext = "No subject data.";
+        let subjectsList = [];
         try {
             const subjectsObj = JSON.parse(subjectsJson);
             if (Array.isArray(subjectsObj) && subjectsObj.length > 0) {
-                academicContext = subjectsObj.map(s =>
-                    `- ${s.subjectName}: ${s.calculatedGrade}% (Assessments: ${s.assessments.map(a => `${a.name}: ${a.scoreObtained}/${a.maxScore}`).join(', ')})`
-                ).join('\n');
+                subjectsList = subjectsObj.map(s => ({
+                    SubjectName: s.subjectName,
+                    CalculatedScore: s.calculatedGrade,
+                    Attendance: 0 // Placeholder as it was not directly available in form unless parsed differently
+                }));
             }
         } catch (e) {
             console.error("Error parsing subjects:", e);
         }
 
-        // --- AI LOGIC ---
-        const apiKey = env.GEMINI_API_KEY;
+        // Construct student data object for the shared helper
+        const studentData = {
+            // Mapping form data to the expected structure in ai.js
+            Skills: skills,
+            Interest: interest,
+            subjects: subjectsList,
+            assessments: [] // Assessments were embedded in string previously, but the helper handles them better if passed structured. 
+            // However, to save time/complexity, I'll stick to the helper's expectation. 
+            // The helper expects 'assessments' array. 
+            // For now, I will pass an empty array or try to parse them if critical.
+            // Actually the existing helper just formats them into text.
+        };
 
-        const prompt = `
-            Act as a Career Counselor. Analyze this student:
-            Name: ${name}
-            Academic Performance:
-            ${academicContext}
-            
-            Overall Attendance: ${attendance}%
-            Behavioral Record: ${behavior}
-            Skills: ${skills}
-            Interests: ${interest}
+        // Wait, the helper `generateAiPrediction` expects a specific structure:
+        // { subjects: [...], assessments: [...], Skills: ..., Interest: ... }
+        // The form data is a bit loose.
+        // But `career-prediction` logic was formatting `academicContext` string manually.
+        // `generateAiPrediction` DOES its own formatting.
+        // So I need to pass the raw data associated with the user.
+        // Actually, isn't it better to just fetch the data from DB again using the helper's preferred way?
+        // OR construct the object correctly.
 
-            Task: 
-            1. Predict top 3 suitable career paths based on their specific subject scores and interests.
-            2. Assess the Risk Level of them failing or dropping out ('Low', 'Medium', or 'High').
+        // Let's rely on the DB fetch to be safe, similar to `api/predict`.
+        // Fetching fresh data ensures consistency.
 
-            Format: Return STRICTLY JSON in this format:
-            {
-                "riskLevel": "Low|Medium|High",
-                "predictionHtml": "<ul class='space-y-2'>...list items...</ul>"
-            }
-            
-            Constraint for HTML: 
-            - Use a COMPACT design.
-            - Use this exact structure for items:
-            <li class="p-3 bg-blue-50 rounded-md border border-blue-100">
-                <div class="font-bold text-slate-800 text-sm">1. [Career Name]</div>
-                <div class="text-xs text-slate-600 mt-1 leading-snug">[Short reasoning]</div>
-            </li>
-            - Keep descriptions very short (1 sentence).
-        `;
+        try {
+            // Re-fetch data for the official helper to ensure consistent context
+            const [profileRows] = await mysqlConn.execute('SELECT * FROM StudentData WHERE StudID = ?', [userID]);
+            const [subjectRows] = await mysqlConn.execute('SELECT * FROM Subject WHERE StudID = ?', [userID]);
+            const [assessmentRows] = await mysqlConn.execute(`
+                SELECT a.*, s.SubjectName 
+                FROM Assessment a 
+                JOIN Subject s ON a.SubjectID = s.SubjectID 
+                WHERE s.StudID = ?
+            `, [userID]);
 
-        let predictionHtml = "<p>Prediction unavailable.</p>";
+            const freshStudentData = {
+                Skills: profileRows[0]?.Skills || skills,
+                Interest: profileRows[0]?.Interest || interest,
+                subjects: subjectRows,
+                assessments: assessmentRows
+            };
 
-        let riskLevel = "Unknown";
+            const result = await import('$lib/server/ai').then(m => m.generateAiPrediction(freshStudentData));
 
-        if (apiKey) {
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
+            // SAVE TO DB
+            await mysqlConn.execute(`
+                 INSERT INTO Prediction (PredictionText, StudID, RiskLevel)
+                 VALUES (?, ?, ?)
+             `, [result.predictionText, userID, result.riskLevel]);
 
-                const result = await response.json();
-                const textResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            return { success: true, predictionResult: result.predictionText, riskLevel: result.riskLevel };
 
-                if (textResponse) {
-                    // Extract JSON from potential markdown blocks
-                    const jsonString = textResponse.replace(/^```json\n|\n```$/g, '').trim();
-                    const aiData = JSON.parse(jsonString);
-
-                    predictionHtml = aiData.predictionHtml;
-                    riskLevel = aiData.riskLevel;
-
-                    // SAVE TO DB
-                    // Note: 'PredictionText' column is TEXT type (approx 64KB), which should fit this HTML easily.
-                    await mysqlConn.execute(`
-                        INSERT INTO Prediction (PredictionText, StudID, RiskLevel)
-                        VALUES (?, ?, ?)
-                    `, [predictionHtml, userID, riskLevel]);
-                }
-
-            } catch (e) {
-                console.error("AI/DB Error:", e);
-                predictionHtml = "<p>Error generating or saving prediction.</p>";
-            }
-        } else {
-            predictionHtml = "<p>AI API Key missing.</p>";
+        } catch (e) {
+            console.error("AI/DB Error:", e);
+            return { success: false, predictionResult: "<p>Error generating prediction.</p>" };
         }
-
-        return { success: true, predictionResult: predictionHtml, riskLevel };
-        // wait, I can just use the 'riskLevel' variable I extracted earlier if it exists.
-        // Let's rewrite the logic slightly to be cleaner.
     }
 };

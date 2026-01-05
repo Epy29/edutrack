@@ -1,33 +1,57 @@
 import { mysqlConn } from '$lib/db';
-import { redirect } from '@sveltejs/kit';
+import { redirect, fail } from '@sveltejs/kit';
 
 export const actions = {
     default: async ({ request, cookies }) => {
         const data = await request.formData();
-        const studID = data.get('studID');
+
+        const userID = data.get('userID');
         const password = data.get('password');
+        const role = data.get('role');
 
-        // 1. Check Database
+        if (!userID || !password || !role) {
+            return fail(400, { error: 'Missing login details' });
+        }
+
         try {
-            const [rows] = await mysqlConn.execute(
-                'SELECT * FROM student WHERE StudID = ? AND Password = ?',
-                [studID, password]
-            );
+            let query;
+            let redirectPath;
 
-            if (rows.length > 0) {
-                // 2. Success: Create a "Session" cookie
-                // store the StudID in the browser, so know who they are later
-                cookies.set('user_id', studID, { path: '/' });
-                
-                // 3. Redirect to Dashboard
-                throw redirect(303, '/student-portal');
+            if (role === 'student') {
+                query = 'SELECT StudID FROM student WHERE StudID = ? AND Password = ?';
+                redirectPath = '/student-portal';
+            } else if (role === 'lecturer') {
+                query = 'SELECT LectID FROM lecturer WHERE LectID = ? AND Password = ?';
+                redirectPath = '/lecturer';
             } else {
-                return { error: 'Invalid Student ID or Password' };
+                return fail(400, { error: 'Invalid role' });
             }
-        } catch (error) {
-            if (error.status === 303) throw error; // Allow redirect
-            console.error(error);
-            return { error: 'Database error. Please try again.' };
+
+            const [rows] = await mysqlConn.execute(query, [userID, password]);
+
+            if (rows.length === 0) {
+                return fail(401, { error: 'Invalid ID or Password' });
+            }
+
+            // ✅ SET SESSION COOKIES
+            cookies.set('user_id', userID, {
+                path: '/',
+                httpOnly: true,
+                sameSite: 'strict'
+            });
+
+            cookies.set('role', role, {
+                path: '/',
+                httpOnly: true,
+                sameSite: 'strict'
+            });
+
+            throw redirect(303, redirectPath);
+
+        } catch (err) {
+            if (err.status === 303) throw err;
+            console.error(err);
+            return fail(500, { error: 'Database error. Please try again.' });
         }
     }
 };
