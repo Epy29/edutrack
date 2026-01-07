@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { filterStudentsBySubject, filterStudentsByRisk } from '$lib/utils';
 
 export async function load({ cookies, fetch, url }) {
     const role = cookies.get('role');
@@ -39,18 +40,10 @@ export async function load({ cookies, fetch, url }) {
         )].sort();
 
         // Server-side filtering by subject
-        if (subjectFilter) {
-            students = students.filter(s =>
-                s.subjects?.some(sub => sub.name === subjectFilter)
-            );
-        }
+        students = filterStudentsBySubject(students, subjectFilter);
 
         // Server-side filtering by risk level
-        if (riskFilter) {
-            students = students.filter(s =>
-                s.risk.toLowerCase() === riskFilter.toLowerCase()
-            );
-        }
+        students = filterStudentsByRisk(students, riskFilter);
 
         return {
             analytics,
