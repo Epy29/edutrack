@@ -55,9 +55,16 @@ FLUSH PRIVILEGES;
 1.  **Copy/Clone the Project**
     -   Download the project files to a folder on your computer.
 
-2.  **Install Dependencies**
-    -   Open a terminal/command prompt in the project folder.
-    -   Run:
+2.  **Navigation**
+    -   Open your terminal (Command Prompt, PowerShell, or Terminal).
+    -   Navigate to the project folder. For example, if you extracted it to your **Downloads** folder:
+        ```bash
+        cd Downloads/edutrack
+        ```
+    -   *Tip: You can often just type `cd ` (with a space) and drag the folder into the terminal window to get the path.*
+
+3.  **Install Dependencies**
+    -   Once inside the folder (you should see `package.json` when you list files), run:
         ```bash
         npm install
         ```
