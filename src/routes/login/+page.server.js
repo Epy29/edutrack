@@ -33,7 +33,7 @@ export const actions = {
                 return fail(401, { error: 'Invalid ID or Password' });
             }
 
-            // ✅ SET SESSION COOKIES
+            // SET SESSION COOKIES
             cookies.set('user_id', userID, {
                 path: '/',
                 httpOnly: true,

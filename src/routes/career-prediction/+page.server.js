@@ -9,20 +9,19 @@ export const load = async ({ cookies }) => {
     }
 
     try {
-        // 1. Fetch Student Identity
+        // Fetch student identity
         const [studentRows] = await mysqlConn.execute('SELECT * FROM student WHERE StudID = ?', [userID]);
         const student = studentRows[0];
         if (!student) throw redirect(303, '/login');
 
-        // 2. Fetch Profile Data
+        // Fetch profile data
         const [profileRows] = await mysqlConn.execute('SELECT * FROM StudentData WHERE StudID = ?', [userID]);
         const profile = profileRows[0] || { Skills: '', Interest: '' };
 
-        // 3. Fetch Subjects
+        // Fetch subjects
         const [subjectRows] = await mysqlConn.execute('SELECT * FROM Subject WHERE StudID = ?', [userID]);
 
-        // 4. Fetch Assessments
-        // Fetching all assessments for this student's subjects
+        // Fetch assessments
         const [assessmentRows] = await mysqlConn.execute(`
             SELECT a.*, s.SubjectID 
             FROM Assessment a 
@@ -30,18 +29,18 @@ export const load = async ({ cookies }) => {
             WHERE s.StudID = ?
         `, [userID]);
 
-        // 5. Process Subjects & Assessments
+        // Process subjects and assessments
         let totalAttendance = 0;
         let attendanceCount = 0;
 
         const subjectsProcessed = subjectRows.map(sub => {
-            // Calculate Subject Attendance for Overall Average
+            // Calculate subject attendance
             if (sub.Attendance !== null) {
                 totalAttendance += parseFloat(sub.Attendance);
                 attendanceCount++;
             }
 
-            // Attach Assessments
+            // Attach assessments
             const subAssessments = assessmentRows.filter(a => a.SubjectID === sub.SubjectID).map(a => ({
                 name: a.Name,
                 scoreObtained: a.ScoreObtained,
@@ -114,31 +113,9 @@ export const actions = {
             console.error("Error parsing subjects:", e);
         }
 
-        // Construct student data object for the shared helper
-        const studentData = {
-            // Mapping form data to the expected structure in ai.js
-            Skills: skills,
-            Interest: interest,
-            subjects: subjectsList,
-            assessments: [] // Assessments were embedded in string previously, but the helper handles them better if passed structured. 
-            // However, to save time/complexity, I'll stick to the helper's expectation. 
-            // The helper expects 'assessments' array. 
-            // For now, I will pass an empty array or try to parse them if critical.
-            // Actually the existing helper just formats them into text.
-        };
 
-        // Wait, the helper `generateAiPrediction` expects a specific structure:
-        // { subjects: [...], assessments: [...], Skills: ..., Interest: ... }
-        // The form data is a bit loose.
-        // But `career-prediction` logic was formatting `academicContext` string manually.
-        // `generateAiPrediction` DOES its own formatting.
-        // So I need to pass the raw data associated with the user.
-        // Actually, isn't it better to just fetch the data from DB again using the helper's preferred way?
-        // OR construct the object correctly.
 
-        // Let's rely on the DB fetch to be safe, similar to `api/predict`.
-        // Fetching fresh data ensures consistency.
-
+        // Re-fetch data from DB to ensure consistency with the helper function's expectations
         try {
             // Re-fetch data for the official helper to ensure consistent context
             const [profileRows] = await mysqlConn.execute('SELECT * FROM StudentData WHERE StudID = ?', [userID]);

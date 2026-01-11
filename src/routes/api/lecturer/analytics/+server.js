@@ -10,7 +10,7 @@ export async function GET({ cookies }) {
     }
 
     try {
-        // 1. Fetch Risk Distribution (Pivot for latest predictions)
+        // Fetch Risk Distribution
         const [rows] = await mysqlConn.execute(`
             SELECT 
                 SUM(CASE WHEN RiskLevel = 'Low' THEN 1 ELSE 0 END) as low,
@@ -22,7 +22,7 @@ export async function GET({ cookies }) {
             )
         `);
 
-        // 2. Fetch Subject Performance (Average Score per Subject)
+        // Fetch Subject Performance
         const [subjectRows] = await mysqlConn.execute(`
             SELECT SubjectName, AVG(CalculatedScore) as AvgScore
             FROM Subject

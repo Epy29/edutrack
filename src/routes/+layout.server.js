@@ -5,7 +5,7 @@ export const load = async ({ cookies, url }) => {
     const userID = cookies.get('user_id');
     const role = cookies.get('role');
 
-    // ❌ Not logged in
+    // Not logged in
     if (!userID || !role) {
         if (url.pathname !== '/login') {
             throw redirect(303, '/login');
@@ -13,12 +13,12 @@ export const load = async ({ cookies, url }) => {
         return {};
     }
 
-    // ❌ Students cannot access lecturer pages
+    // Students cannot access lecturer pages
     if (url.pathname.startsWith('/lecturer') && role !== 'lecturer') {
         throw redirect(303, '/student-portal');
     }
 
-    // ❌ Lecturers cannot access student pages
+    // Lecturers cannot access student pages
     if (url.pathname.startsWith('/student-portal') && role !== 'student') {
         throw redirect(303, '/lecturer');
     }

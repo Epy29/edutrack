@@ -9,7 +9,7 @@ export async function GET({ cookies }) {
     }
 
     try {
-        // 1. Fetch Students and Latest Prediction (Base Data)
+        // Fetch Students and Latest Prediction
         const [studentRows] = await mysqlConn.execute(`
             SELECT s.StudID, s.Username, p.RiskLevel, p.PredictionText
             FROM Student s
@@ -21,10 +21,10 @@ export async function GET({ cookies }) {
             )
         `);
 
-        // 2. Fetch Student Profile Data (Skills, Interests)
+        // Fetch Student Profile Data
         const [profileRows] = await mysqlConn.execute('SELECT StudID, Skills, Interest FROM StudentData');
 
-        // 3. Fetch Student Academic Data (Subjects, Scores, Attendance)
+        // Fetch Student Academic Data
         const [subjectRows] = await mysqlConn.execute('SELECT StudID, SubjectName, CalculatedScore, Attendance FROM Subject');
 
         // Helper to find profile for a student

@@ -38,7 +38,7 @@
         activeModal = null;
         selectedItem = null;
         parentID = null;
-        // CHANGES OCCUR: Reset form error when closing modal so it doesn't persist
+        // Reset form error when closing modal so it doesn't persist
         if (form) form.error = null;
     }
 </script>
@@ -350,7 +350,7 @@
                     >
                 </div>
 
-                <!-- CHANGES OCCUR: Added Error Display -->
+                <!-- Error Display -->
                 {#if form?.error}
                     <div
                         class="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm"
@@ -467,8 +467,3 @@
         </div>
     {/if}
 </div>
-
-<!-- **Key Changes:**
-1.  **Backend Validation:** Checks total `MaxScore` in DB before inserting/updating.
-2.  **Frontend Error Handling:** `{#if form?.error}` block added to the modal.
-3.  **Enhance Logic:** Modified `use:enhance` to keep the modal open if an error occurs (`result.type !== 'success'`), allowing the user to see the warning and correct their input. -->

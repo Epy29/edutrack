@@ -1,4 +1,4 @@
-<!-- ERROR: after save editted data, form is blank. Reload needed to see the data -->
+<!-- TODO: Fix form blank state after save -->
 
 <script>
     import { enhance } from "$app/forms";
@@ -7,7 +7,7 @@
     export let data;
     export let form;
 
-    // REACTIVE: Update local student object when data changes
+    // Sync local student object
     $: student = data.student || {};
 
     let isEditing = false;
@@ -71,8 +71,8 @@
             }}
             class="p-8"
         >
-            <!-- 1. Personal Info (Read Only) -->
-            <!-- CHECK: Using Capitalized Property Names to match MySQL -->
+            <!-- Personal Info -->
+            <!-- MySQL property names -->
 
             <h4
                 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6 pb-2 border-b border-slate-100"
@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <!-- 2. Attendance -->
+            <!-- Attendance -->
             <h4
                 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6 pb-2 border-b border-slate-100"
             >
@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-            <!-- 3. Skills & Interests -->
+            <!-- Skills & Interests -->
             <h4
                 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6 pb-2 border-b border-slate-100"
             >

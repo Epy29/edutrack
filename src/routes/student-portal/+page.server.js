@@ -9,18 +9,18 @@ export const load = async ({ cookies }) => {
     }
 
     try {
-        // 1. Fetch Student Info
+        // Fetch Student Info
         const [studentRows] = await mysqlConn.execute('SELECT * FROM student WHERE StudID = ?', [userID]);
         const student = studentRows[0];
 
-        // 2. Fetch Profile (Skills/Interests) - for AI Prediction context
+        // Fetch Profile
         const [profileRows] = await mysqlConn.execute('SELECT * FROM StudentData WHERE StudID = ?', [userID]);
         const profile = profileRows[0] || {};
 
-        // 3. Fetch Subjects & Grades (For the Academic Table)
+        // Fetch Subjects & Grades
         const [subjectRows] = await mysqlConn.execute('SELECT * FROM Subject WHERE StudID = ?', [userID]);
 
-        // 4. Fetch Latest Prediction
+        // Fetch Latest Prediction
         const [predRows] = await mysqlConn.execute('SELECT * FROM Prediction WHERE StudID = ? ORDER BY PredID DESC LIMIT 1', [userID]);
         let latestPrediction = null;
         if (predRows.length > 0) {

@@ -6,7 +6,7 @@ export const load = async ({ cookies }) => {
     if (!userID) throw redirect(303, '/login');
 
     try {
-        // 1. Fetch Student Identity (Name, ID, Email, Class)
+        // Fetch student identity
         const [studentRows] = await mysqlConn.execute('SELECT * FROM student WHERE StudID = ?', [userID]);
         const student = studentRows[0];
 
@@ -15,11 +15,11 @@ export const load = async ({ cookies }) => {
             throw redirect(303, '/login');
         }
 
-        // 2. Fetch Profile Data (Skills, Interests)
+        // Fetch profile data
         const [profileRows] = await mysqlConn.execute('SELECT * FROM StudentData WHERE StudID = ?', [userID]);
         const profile = profileRows[0] || { Skills: '', Interest: '', Cocuriculum: '', Behaviour: '' }; // Default empty if no profile
 
-        // 3. Calculate Overall Attendance
+        // Calculate overall attendance
         const [subjectRows] = await mysqlConn.execute('SELECT Attendance FROM Subject WHERE StudID = ?', [userID]);
 
         let totalAttendance = 0;
@@ -34,11 +34,11 @@ export const load = async ({ cookies }) => {
 
         return {
             student: {
-                // Spread student identity fields first
+                // Student identity
                 ...student,
-                // Spread profile fields (Skills, Interest)
+                // Profile fields
                 ...profile,
-                // Add calculated field
+                // Calculated fields
                 attendanceAvg: avgAttendance
             }
         };

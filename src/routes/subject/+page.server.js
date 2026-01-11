@@ -1,7 +1,7 @@
 import { mysqlConn } from '$lib/db';
 import { redirect } from '@sveltejs/kit';
 
-// 1. Helper Function: Recalculate Subject Score
+// Helper Function: Recalculate Subject Score
 import { calculateFinalScore } from '$lib/utils';
 
 async function updateSubjectScore(subjectID) {
@@ -58,7 +58,7 @@ export const load = async ({ cookies }) => {
 };
 
 export const actions = {
-    // 2. Add Subject Action
+    // Add Subject Action
     addSubject: async ({ request, cookies }) => {
         const userID = cookies.get('user_id');
         const data = await request.formData();
@@ -76,7 +76,7 @@ export const actions = {
         }
     },
 
-    // 3. Update Subject Action
+    // Update Subject Action
     updateSubject: async ({ request, cookies }) => {
         const userID = cookies.get('user_id');
         const data = await request.formData();
@@ -98,7 +98,7 @@ export const actions = {
         }
     },
 
-    // 4. Delete Subject Action
+    // Delete Subject Action
     deleteSubject: async ({ request, cookies }) => {
         const userID = cookies.get('user_id');
         const data = await request.formData();
@@ -115,7 +115,7 @@ export const actions = {
         }
     },
 
-    // 5. Add Assessment Action
+    // Add Assessment Action
     addAssessment: async ({ request }) => {
         const data = await request.formData();
         const subjectID = data.get('subjectID');
@@ -155,7 +155,7 @@ export const actions = {
         }
     },
 
-    // 6. Update Assessment Action
+    // Update Assessment Action
     updateAssessment: async ({ request }) => {
         const data = await request.formData();
         const assessmentID = data.get('assessmentID');
@@ -197,7 +197,7 @@ export const actions = {
         }
     },
 
-    // 7. Delete Assessment Action
+    // Delete Assessment Action
     deleteAssessment: async ({ request }) => {
         const data = await request.formData();
         const assessmentID = data.get('assessmentID');

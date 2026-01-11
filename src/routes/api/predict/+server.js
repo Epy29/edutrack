@@ -9,7 +9,7 @@ export async function POST({ cookies }) {
     }
 
     try {
-        // 1. Fetch all student context
+        // Fetch all student context
         const [studentRows] = await mysqlConn.execute('SELECT * FROM Student WHERE StudID = ?', [userID]);
         const [profileRows] = await mysqlConn.execute('SELECT * FROM StudentData WHERE StudID = ?', [userID]);
         const [subjectRows] = await mysqlConn.execute('SELECT * FROM Subject WHERE StudID = ?', [userID]);
@@ -31,10 +31,10 @@ export async function POST({ cookies }) {
             assessments: assessmentRows
         };
 
-        // 2. Generate Prediction
+        // Generate Prediction
         const prediction = await generateAiPrediction(studentData);
 
-        // 3. Save to Database
+        // Save to Database
         await mysqlConn.execute(`
             INSERT INTO Prediction (PredictionText, StudID, RiskLevel)
             VALUES (?, ?, ?)
