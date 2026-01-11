@@ -62,8 +62,8 @@ export const load = async ({ cookies }) => {
                 studentName: student.Username,
                 studentID: student.StudID,
                 attendance: overallAttendance,
-                behavioralRecord: "Excellent", // Placeholder as column doesn't exist
-                coCurricularActivity: "Robotics Club", // Placeholder
+                behavioralRecord: profile.Behaviour || "No record",
+                coCurricularActivity: profile.Cocuriculum || "No activity",
                 subjects: subjectsProcessed,
                 skills: profile.Skills || "",
                 interest: profile.Interest || ""
@@ -153,6 +153,8 @@ export const actions = {
             const freshStudentData = {
                 Skills: profileRows[0]?.Skills || skills,
                 Interest: profileRows[0]?.Interest || interest,
+                Cocuriculum: profileRows[0]?.Cocuriculum || "",
+                Behaviour: profileRows[0]?.Behaviour || "",
                 subjects: subjectRows,
                 assessments: assessmentRows
             };

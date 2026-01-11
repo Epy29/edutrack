@@ -11,17 +11,17 @@ export const load = async ({ cookies }) => {
         const student = studentRows[0];
 
         if (!student) {
-             // If user ID in cookie doesn't exist in DB
-             throw redirect(303, '/login');
+            // If user ID in cookie doesn't exist in DB
+            throw redirect(303, '/login');
         }
 
         // 2. Fetch Profile Data (Skills, Interests)
         const [profileRows] = await mysqlConn.execute('SELECT * FROM StudentData WHERE StudID = ?', [userID]);
-        const profile = profileRows[0] || { Skills: '', Interest: '' }; // Default empty if no profile
+        const profile = profileRows[0] || { Skills: '', Interest: '', Cocuriculum: '', Behaviour: '' }; // Default empty if no profile
 
         // 3. Calculate Overall Attendance
         const [subjectRows] = await mysqlConn.execute('SELECT Attendance FROM Subject WHERE StudID = ?', [userID]);
-        
+
         let totalAttendance = 0;
         let count = 0;
         subjectRows.forEach(sub => {
@@ -35,7 +35,7 @@ export const load = async ({ cookies }) => {
         return {
             student: {
                 // Spread student identity fields first
-                ...student, 
+                ...student,
                 // Spread profile fields (Skills, Interest)
                 ...profile,
                 // Add calculated field
@@ -57,14 +57,20 @@ export const actions = {
         const data = await request.formData();
         const skills = data.get('skills');
         const interest = data.get('interest');
+        const cocuriculum = data.get('cocuriculum');
+        const behaviour = data.get('behaviour');
 
         try {
             // Update StudentData table
             await mysqlConn.execute(`
-                INSERT INTO StudentData (StudID, Skills, Interest) 
-                VALUES (?, ?, ?) 
-                ON DUPLICATE KEY UPDATE Skills = VALUES(Skills), Interest = VALUES(Interest)
-            `, [userID, skills, interest]);
+                INSERT INTO StudentData(StudID, Skills, Interest, Cocuriculum, Behaviour)
+                VALUES(?, ?, ?, ?, ?) 
+                ON DUPLICATE KEY UPDATE 
+                    Skills = VALUES(Skills), 
+                    Interest = VALUES(Interest),
+                    Cocuriculum = VALUES(Cocuriculum),
+                    Behaviour = VALUES(Behaviour)
+            `, [userID, skills, interest, cocuriculum, behaviour]);
 
             return { success: true };
         } catch (error) {

@@ -2,6 +2,8 @@ import { mysqlConn } from '$lib/db';
 import { redirect } from '@sveltejs/kit';
 
 // 1. Helper Function: Recalculate Subject Score
+import { calculateFinalScore } from '$lib/utils';
+
 async function updateSubjectScore(subjectID) {
     try {
         const [assessments] = await mysqlConn.execute(
@@ -9,20 +11,7 @@ async function updateSubjectScore(subjectID) {
             [subjectID]
         );
 
-        let totalObtained = 0;
-        let totalMaxAttempted = 0;
-
-        for (const asm of assessments) {
-            if (asm.ScoreObtained !== null) {
-                totalObtained += parseFloat(asm.ScoreObtained);
-                totalMaxAttempted += parseFloat(asm.MaxScore);
-            }
-        }
-
-        let finalPercentage = 0;
-        if (totalMaxAttempted > 0) {
-            finalPercentage = (totalObtained / totalMaxAttempted) * 100;
-        }
+        const finalPercentage = calculateFinalScore(assessments);
 
         await mysqlConn.execute(
             'UPDATE Subject SET CalculatedScore = ? WHERE subjectID = ?',
