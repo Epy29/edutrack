@@ -1,5 +1,31 @@
 import { describe, it, expect } from 'vitest';
-import { filterStudentsBySubject, filterStudentsByRisk } from './utils';
+import { filterStudentsBySubject, filterStudentsByRisk, calculateFinalScore } from './utils';
+
+describe('calculateFinalScore', () => {
+    it('should calculate correct percentage', () => {
+        const assessments = [
+            { MaxScore: 50, ScoreObtained: 40 }, // 80%
+            { MaxScore: 50, ScoreObtained: 50 }  // 100%
+        ];
+        // Total: 90/100 = 90%
+        expect(calculateFinalScore(assessments)).toBe(90);
+    });
+
+    it('should ignore assessments with null scores', () => {
+        const assessments = [
+            { MaxScore: 50, ScoreObtained: 50 },
+            { MaxScore: 50, ScoreObtained: null }
+        ];
+        // Should only count the first one: 50/50 = 100%
+        expect(calculateFinalScore(assessments)).toBe(100);
+    });
+
+    it('should return 0 if total max score is 0', () => {
+        const assessments = [];
+        expect(calculateFinalScore(assessments)).toBe(0);
+    });
+});
+
 
 describe('filterStudentsBySubject', () => {
     const students = [
