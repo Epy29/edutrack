@@ -96,3 +96,12 @@ FLUSH PRIVILEGES;
 -   **Database Connection Error:** Ensure MySQL is running and the `EduTrack` user exists with the correct password.
 -   **Missing Dependencies:** Try running `npm install` again.
 -   **Port In Use:** If port 5173 is taken, Vite will try the next available port (e.g., 5174). Check the terminal output.
+
+---
+
+## Test Login Credentials
+
+| Role | Username | Password |
+| :--- | :--- | :--- |
+| Student | `aiman` | `123` |
+| Lecturer | `9001` | `123` |
