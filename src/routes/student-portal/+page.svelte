@@ -33,7 +33,7 @@
     }
 </script>
 
-<div class="w-full">
+<div class="w-full max-w-6xl mx-auto">
     <!-- Welcome Header -->
     <div class="mb-8">
         <h2 class="text-2xl font-bold text-slate-800">Student Dashboard</h2>
@@ -77,11 +77,9 @@
                         Risk Level: {student.prediction.riskLevel || "Unknown"}
                     </span>
                 </div>
-                <p
-                    class="text-slate-600 mb-4 leading-relaxed whitespace-pre-wrap"
-                >
+                <div class="prose prose-sm max-w-none text-slate-600 mb-4">
                     {@html student.prediction.description}
-                </p>
+                </div>
             </div>
         {:else}
             <!-- If NO prediction (Null State) -->
