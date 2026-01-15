@@ -1,8 +1,8 @@
 import { env } from '$env/dynamic/private';
 
 /**
- * Generates a prediction for a student based on their data.
- * @param {Object} studentData - The student's profile and academic data.
+ * //generate prediction 
+ * @param {Object} studentData
  * @returns {Promise<{riskLevel: string, predictionText: string}>}
  */
 export async function generateAiPrediction(studentData) {
@@ -23,6 +23,7 @@ export async function generateAiPrediction(studentData) {
         
         Academic Performance:
         ${studentData.subjects.map(s => `- ${s.SubjectName}: ${s.CalculatedScore} (Attendance: ${s.Attendance}%)`).join('\n')}
+
         
         Assessment Scores:
         ${studentData.assessments.map(a => `- ${a.Name} (Subject ${a.SubjectName}): ${a.ScoreObtained}/${a.MaxScore}`).join('\n')}
